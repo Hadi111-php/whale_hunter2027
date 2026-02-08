@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐋 Whale Hunter Pro v6.0 - Advanced Edition</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Vazirmatn', sans-serif; }
+        .glass { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); }
+        .live-dot { animation: pulse 1.5s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .slide-in { animation: slideIn 0.3s ease-out; }
+        .scrollbar-thin::-webkit-scrollbar { width: 4px; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: #475569; border-radius: 2px; }
+        .price-popup {
+            position: fixed;
+            background: rgba(15, 23, 42, 0.98);
+            border: 2px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            z-index: 9999;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white min-h-screen">
+    
+    <!-- Price Popup (Ctrl+1+Right Click) -->
+    <div id="pricePopup" class="price-popup">
+        <div class="text-sm text-slate-400 mb-1">قیمت لحظه‌ای</div>
+        <div id="popupSymbol" class="text-xl font-bold mb-1">-</div>
+        <div id="popupPrice" class="text-3xl font-bold text-green-400 mb-1">$0.00</div>
+        <div id="popupTime" class="text-xs text-slate-500">-</div>
+    </div>
+
+    <header class="glass border-b border-slate-700 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between flex-wrap gap-3">
+                <div class="flex items-center gap-4">
+                    <h1 class="text-2xl font-bold flex items-center gap-2">
+                        <span class="text-4xl">🐋</span>
+                        <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                            Whale Hunter Pro v6.0
+                        </span>
+                        <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded-full">Advanced 🚀</span>
+                    </h1>
+                    <div id="apiStatus" class="flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-sm">
+                        <span class="w-2 h-2 rounded-full bg-yellow-500 live-dot"></span>
+                        <span>در حال اتصال...</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <select id="apiSource" onchange="changeApi()" class="bg-slate-800 rounded-lg px-3 py-1 border border-slate-600 text-sm">
+                        <option value="bybit">🟡 Bybit Futures</option>
+                        <option value="okx">🟠 OKX Futures</option>
+                        <option value="coingecko">🦎 CoinGecko</option>
+                        <option value="kucoin">🟢 KuCoin</option>
+                    </select>
+                    <div id="tradingMode" class="px-3 py-1 rounded-lg bg-green-500/20 text-green-400 text-sm font-bold">
+                        📄 Paper Mode
+                    </div>
+                    <span id="lastUpdate" class="text-xs text-slate-400">-</span>
+                </div>
+            </div>
+            <nav class="flex gap-2 mt-3 flex-wrap">
+                <button onclick="showTab('dashboard')" class="tab-btn px-4 py-2 rounded-lg bg-slate-700 text-sm" data-tab="dashboard">🎯 داشبورد</button>
+                <button onclick="showTab('market')" class="tab-btn px-4 py-2 rounded-lg hover:bg-slate-700 text-sm" data-tab="market">📊 بازار</button>
+                <button onclick="showTab('whales')" class="tab-btn px-4 py-2 rounded-lg hover:bg-slate-700 text-sm" data-tab="whales">🐋 نهنگ‌ها</button>
+                <button onclick="showTab('signals')" class="tab-btn px-4 py-2 rounded-lg hover:bg-slate-700 text-sm" data-tab="signals">📡 سیگنال‌ها</button>
+                <button onclick="showTab('autotrade')" class="tab-btn px-4 py-2 rounded-lg hover:bg-slate-700 text-sm" data-tab="autotrade">🤖 اتو ترید</button>
+                <button onclick="showTab('advanced')" class="tab-btn px-4 py-2 rounded-lg hover:bg-slate-700 text-sm" data-tab="advanced">🧠 الگوریتم‌ها</button>
+                <button onclick="showTab('settings')" class="tab-btn px-4 py-2 rounded-lg hover:bg-slate-700 text-sm" data-tab="settings">⚙️ تنظیمات</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+        
+        <!-- Dashboard -->
+        <div id="dashboard-tab" class="tab-content">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-6">
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <div class="text-slate-400 text-xs">نهنگ مادر</div>
+                    <div class="text-2xl font-bold text-blue-400" id="statWhales">0</div>
+                </div>
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <div class="text-slate-400 text-xs">سیگنال معتبر</div>
+                    <div class="text-2xl font-bold text-green-400" id="statValid">0</div>
+                </div>
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <div class="text-slate-400 text-xs">در انتظار</div>
+                    <div class="text-2xl font-bold text-yellow-400" id="statPending">0</div>
+                </div>
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <div class="text-slate-400 text-xs">دقت سیگنال</div>
+                    <div class="text-2xl font-bold text-purple-400" id="statAccuracy">0%</div>
+                </div>
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <div class="text-slate-400 text-xs">پامپ/دامپ</div>
+                    <div class="text-2xl font-bold text-orange-400" id="statPumpDump">0</div>
+                </div>
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <div class="text-slate-400 text-xs">Whale Flow</div>
+                    <div class="text-2xl font-bold text-cyan-400" id="statFlow">$0</div>
+                </div>
+                <div class="glass rounded-xl p-4 border border-purple-500/30">
+                    <div class="text-slate-400 text-xs">OI Delta</div>
+                    <div class="text-2xl font-bold text-purple-400" id="statOIDelta">0</div>
+                </div>
+            </div>
+            
+            <!-- Advanced Indicators Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <div class="glass rounded-xl p-4 border border-blue-500/30">
+                    <h3 class="font-bold text-blue-400 mb-3 flex items-center gap-2">
+                        🧊 Iceberg Detection
+                        <span class="text-xs bg-blue-500/20 px-2 py-0.5 rounded-full" id="icebergCount">0</span>
+                    </h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">آخرین تشخیص:</span>
+                            <span id="lastIceberg" class="text-blue-300">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">میانگین امتیاز:</span>
+                            <span id="avgIcebergScore" class="font-bold">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-xl p-4 border border-green-500/30">
+                    <h3 class="font-bold text-green-400 mb-3 flex items-center gap-2">
+                        📈 Order Flow
+                        <span class="text-xs bg-green-500/20 px-2 py-0.5 rounded-full">LIVE</span>
+                    </h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-400">Buy Flow:</span>
+                            <span class="text-green-400 font-bold" id="buyFlowStat">$0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-400">Sell Flow:</span>
+                            <span class="text-red-400 font-bold" id="sellFlowStat">$0</span>
+                        </div>
+                        <div class="flex justify-between text-sm border-t border-slate-600 pt-2">
+                            <span class="text-slate-400">Net:</span>
+                            <span id="netFlowStat" class="font-bold">$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-xl p-4 border border-purple-500/30">
+                    <h3 class="font-bold text-purple-400 mb-3 flex items-center gap-2">
+                        🧠 CNN-BiLSTM
+                        <span class="text-xs bg-purple-500/20 px-2 py-0.5 rounded-full">AI</span>
+                    </h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-400">میانگین امتیاز:</span>
+                            <span id="avgCNNScore" class="font-bold">0</span>
+                        </div>
+                        <div class="w-full bg-slate-700 rounded-full h-3">
+                            <div id="cnnScoreBar" class="bg-purple-500 h-3 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trend Reversal Alert -->
+            <div class="mb-6 glass rounded-xl p-4 border border-orange-500/30">
+                <h3 class="font-bold text-orange-400 mb-3 flex items-center gap-2">
+                    🔄 هشدار فشار تغییر روند
+                    <span class="text-xs bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full live-dot">LIVE</span>
+                </h3>
+                <div id="reversalList" class="flex gap-3 overflow-x-auto pb-2">
+                    <div class="text-slate-400 text-sm">در انتظار...</div>
+                </div>
+            </div>
+
+            <!-- Pump/Dump -->
+            <div class="mb-6 glass rounded-xl p-4 border border-red-500/30">
+                <h3 class="font-bold text-red-400 mb-3">🚨 هشدار پامپ/دامپ</h3>
+                <div id="pumpDumpList" class="flex gap-3 overflow-x-auto pb-2">
+                    <div class="text-slate-400 text-sm">در انتظار...</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <h3 class="font-bold mb-3 flex items-center gap-2">
+                        🐋 نهنگ‌های اخیر
+                        <span class="text-xs bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full live-dot">LIVE</span>
+                    </h3>
+                    <div id="whaleList" class="space-y-2 max-h-64 overflow-y-auto scrollbar-thin">
+                        <div class="text-slate-400 text-sm">در انتظار...</div>
+                    </div>
+                </div>
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <h3 class="font-bold mb-3">💧 Whale Flow (24h)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>ورود</span>
+                                <span class="text-green-400" id="flowIn">$0</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-3">
+                                <div id="flowInBar" class="bg-green-500 h-3 rounded-full" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>خروج</span>
+                                <span class="text-red-400" id="flowOut">$0</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-3">
+                                <div id="flowOutBar" class="bg-red-500 h-3 rounded-full" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div class="pt-3 border-t border-slate-600 flex justify-between">
+                            <span>خالص</span>
+                            <span id="flowNet" class="font-bold text-lg">$0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Market Tab -->
+        <div id="market-tab" class="tab-content hidden">
+            <div class="glass rounded-xl p-4 border border-slate-700">
+                <div class="flex justify-between items-center mb-4 flex-wrap gap-3">
+                    <h3 class="font-bold">📊 بازار فیوچرز (هر 10 ثانیه)</h3>
+                    <div class="text-xs text-slate-400">
+                        💡 نکته: Ctrl+1 + Right Click روی نماد برای نمایش قیمت لحظه‌ای
+                    </div>
+                </div>
+                <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-800 sticky top-0">
+                            <tr class="text-slate-400">
+                                <th class="text-right py-2 px-2">نماد</th>
+                                <th class="text-right py-2 px-2">قیمت</th>
+                                <th class="text-right py-2 px-2">تغییر 24h</th>
+                                <th class="text-right py-2 px-2">حجم</th>
+                                <th class="text-right py-2 px-2">OI</th>
+                                <th class="text-right py-2 px-2">OI Δ</th>
+                                <th class="text-right py-2 px-2">FR</th>
+                                <th class="text-right py-2 px-2">سیگنال‌ها</th>
+                            </tr>
+                        </thead>
+                        <tbody id="marketTable">
+                            <tr><td colspan="8" class="text-center py-8 text-slate-400">در حال بارگذاری...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Advanced Algorithms Tab -->
+        <div id="advanced-tab" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass rounded-xl p-4 border border-blue-500/30">
+                    <h3 class="font-bold text-blue-400 mb-4 flex items-center gap-2">
+                        🧊 Iceberg Orders Detection
+                        <span class="text-xs bg-blue-500/20 px-2 py-0.5 rounded-full">Active</span>
+                    </h3>
+                    <div class="mb-4 p-3 bg-slate-800 rounded-lg">
+                        <div class="text-xs text-slate-400 mb-2">الگوریتم:</div>
+                        <code class="text-xs text-green-400">Score = (Volume / Bid-Ask Spread) / Threshold</code>
+                    </div>
+                    <div id="icebergList" class="space-y-2 max-h-64 overflow-y-auto scrollbar-thin">
+                        <div class="text-slate-400 text-sm">سفارشات کوه یخی شناسایی نشده</div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-xl p-4 border border-green-500/30">
+                    <h3 class="font-bold text-green-400 mb-4 flex items-center gap-2">
+                        📈 Order Flow Analysis
+                        <span class="text-xs bg-green-500/20 px-2 py-0.5 rounded-full">Real-time</span>
+                    </h3>
+                    <div class="mb-4 p-3 bg-slate-800 rounded-lg">
+                        <div class="text-xs text-slate-400 mb-2">فرمول:</div>
+                        <div class="text-xs text-green-400 space-y-1">
+                            <div>Buy = Vol × (1 + Δ%) / 2</div>
+                            <div>Sell = Vol × (1 - Δ%) / 2</div>
+                            <div>Net = Buy - Sell</div>
+                        </div>
+                    </div>
+                    <div id="orderFlowChart" class="h-40 bg-slate-800 rounded-lg flex items-center justify-center">
+                        <span class="text-slate-500">نمودار در حال بارگذاری...</span>
+                    </div>
+                </div>
+
+                <div class="glass rounded-xl p-4 border border-purple-500/30">
+                    <h3 class="font-bold text-purple-400 mb-4 flex items-center gap-2">
+                        🧠 CNN-BiLSTM Scoring
+                        <span class="text-xs bg-purple-500/20 px-2 py-0.5 rounded-full">AI Model</span>
+                    </h3>
+                    <div class="mb-4 p-3 bg-slate-800 rounded-lg">
+                        <div class="text-xs text-slate-400 mb-2">ویژگی‌ها:</div>
+                        <ul class="text-xs text-purple-300 space-y-1">
+                            <li>✓ Momentum Analysis (+15)</li>
+                            <li>✓ Volume Pattern (+20)</li>
+                            <li>✓ OI Trend (+15)</li>
+                            <li>✓ Base Score (50)</li>
+                        </ul>
+                    </div>
+                    <div id="mlScoresList" class="space-y-2 max-h-40 overflow-y-auto scrollbar-thin">
+                        <div class="text-slate-400 text-sm">در انتظار داده...</div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-xl p-4 border border-orange-500/30">
+                    <h3 class="font-bold text-orange-400 mb-4 flex items-center gap-2">
+                        🔄 Trend Reversal Detection
+                        <span class="text-xs bg-orange-500/20 px-2 py-0.5 rounded-full">Pattern</span>
+                    </h3>
+                    <div class="mb-4 p-3 bg-slate-800 rounded-lg">
+                        <div class="text-xs text-slate-400 mb-2">شرایط:</div>
+                        <div class="text-xs text-orange-300 space-y-1">
+                            <div>IF |OI Δ| > 10% of OI</div>
+                            <div>AND Price ↔ Opposite Direction</div>
+                            <div>THEN Reversal = TRUE</div>
+                        </div>
+                    </div>
+                    <div id="reversalDetections" class="space-y-2 max-h-40 overflow-y-auto scrollbar-thin">
+                        <div class="text-slate-400 text-sm">الگوی تغییر روند شناسایی نشده</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signals Tab -->
+        <div id="signals-tab" class="tab-content hidden">
+            <div class="glass rounded-xl p-4 border border-slate-700">
+                <div class="flex justify-between items-center mb-4 flex-wrap gap-3">
+                    <h3 class="font-bold">📡 سیگنال‌ها (اعتبارسنجی 1، 2، 4 دقیقه)</h3>
+                    <div class="flex gap-2">
+                        <button onclick="filterSignals('all')" class="px-3 py-1 rounded bg-slate-700 text-sm">همه</button>
+                        <button onclick="filterSignals('valid')" class="px-3 py-1 rounded bg-green-500/20 text-green-400 text-sm">✅ معتبر</button>
+                        <button onclick="filterSignals('invalid')" class="px-3 py-1 rounded bg-red-500/20 text-red-400 text-sm">❌ نامعتبر</button>
+                        <button onclick="filterSignals('pending')" class="px-3 py-1 rounded bg-yellow-500/20 text-yellow-400 text-sm">⏳ انتظار</button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-800">
+                            <tr class="text-slate-400">
+                                <th class="text-right py-2 px-2">زمان</th>
+                                <th class="text-right py-2 px-2">نماد</th>
+                                <th class="text-right py-2 px-2">نوع</th>
+                                <th class="text-right py-2 px-2">قیمت ورود</th>
+                                <th class="text-right py-2 px-2">1 دقیقه</th>
+                                <th class="text-right py-2 px-2">2 دقیقه</th>
+                                <th class="text-right py-2 px-2">4 دقیقه</th>
+                                <th class="text-right py-2 px-2">امتیاز</th>
+                                <th class="text-right py-2 px-2">AI Score</th>
+                                <th class="text-right py-2 px-2">وضعیت</th>
+                            </tr>
+                        </thead>
+                        <tbody id="signalTable">
+                            <tr><td colspan="10" class="text-center py-8 text-slate-400">سیگنالی ثبت نشده</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auto Trade Tab -->
+        <div id="autotrade-tab" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <h3 class="font-bold mb-3">🎭 حالت معامله</h3>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-green-500/10 rounded-lg border border-green-500/30">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" name="tradeMode" value="paper" checked onchange="changeTradingMode()">
+                                <div>
+                                    <div class="font-bold text-green-400">📄 Paper Trading</div>
+                                    <div class="text-xs text-slate-400">معامله فرضی - بدون ریسک</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="p-3 bg-red-500/10 rounded-lg border border-red-500/30">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" name="tradeMode" value="live" onchange="changeTradingMode()">
+                                <div>
+                                    <div class="font-bold text-red-400">🔴 Live Trading</div>
+                                    <div class="text-xs text-slate-400">معامله واقعی - با ریسک</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="p-3 bg-orange-500/10 rounded-lg border border-orange-500/30 text-xs">
+                            ⚠️ توصیه: ابتدا در حالت Paper تست کنید!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <h3 class="font-bold mb-3">⚙️ تنظیمات معامله</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-slate-400 text-xs">مبلغ (USDT)</label>
+                            <input type="number" id="tradeAmount" value="5" min="5" 
+                                class="w-full bg-slate-800 rounded-lg px-3 py-2 border border-slate-600">
+                        </div>
+                        <div>
+                            <label class="text-slate-400 text-xs">اهرم</label>
+                            <select id="leverage" class="w-full bg-slate-800 rounded-lg px-3 py-2 border border-slate-600">
+                                <option value="3">3x</option>
+                                <option value="5" selected>5x</option>
+                                <option value="10">10x</option>
+                                <option value="20">20x</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-slate-400 text-xs">حد ضرر (%)</label>
+                                <input type="number" id="stopLoss" value="2" step="0.5"
+                                    class="w-full bg-slate-800 rounded-lg px-3 py-2 border border-slate-600">
+                            </div>
+                            <div>
+                                <label class="text-slate-400 text-xs">حد سود (%)</label>
+                                <input type="number" id="takeProfit" value="4" step="0.5"
+                                    class="w-full bg-slate-800 rounded-lg px-3 py-2 border border-slate-600">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-xl p-4 border border-slate-700">
+                    <h3 class="font-bold mb-3">🤖 کنترل</h3>
+                    <div class="space-y-3">
+                        <div class="p-4 bg-slate-800 rounded-lg text-center">
+                            <div class="text-sm text-slate-400">وضعیت</div>
+                            <div id="tradeStatus" class="text-xl font-bold text-slate-400">غیرفعال</div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="p-2 bg-slate-800 rounded-lg text-center">
+                                <div class="text-lg font-bold text-blue-400" id="dailyTrades">0</div>
+                                <div class="text-xs text-slate-400">ترید امروز</div>
+                            </div>
+                            <div class="p-2 bg-slate-800 rounded-lg text-center">
+                                <div class="text-lg font-bold text-orange-400" id="consecutiveLosses">0</div>
+                                <div class="text-xs text-slate-400">ضرر متوالی</div>
+                            </div>
+                        </div>
+                        <div class="p-2 bg-slate-800 rounded-lg">
+                            <div class="flex justify-between text-sm">
+                                <span>PnL:</span>
+                                <span id="tradePnl" class="font-bold text-green-400">$0</span>
+                            </div>
+                        </div>
+                        <button onclick="startAutoTrade()" id="btnStart" class="w-full bg-green-600 py-3 rounded-lg font-bold">▶️ شروع اتو ترید</button>
+                        <button onclick="stopAutoTrade()" id="btnStop" class="hidden w-full bg-red-600 py-3 rounded-lg font-bold">⏸️ توقف</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 glass rounded-xl p-4 border border-green-500/30">
+                <h3 class="font-bold text-green-400 mb-3">🎯 صف اتو ترید (مرتب بر اساس امتیاز)</h3>
+                <div id="tradeQueue" class="space-y-2 max-h-64 overflow-y-auto scrollbar-thin">
+                    <div class="text-slate-400 text-sm">سیگنال معتبری وجود ندارد</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings-tab" class="tab-content hidden">
+            <div class="glass rounded-xl p-6 border border-slate-700">
+                <h3 class="font-bold text-xl mb-6">⚙️ تنظیمات سیستم</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 bg-slate-800 rounded-xl">
+                        <h4 class="font-bold text-purple-400 mb-4">🧮 اعتبارسنجی</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-slate-400 text-sm">حداقل تغییر قیمت (%)</label>
+                                <input type="number" id="cfgMinChange" value="0.1" step="0.05"
+                                    class="w-full bg-slate-700 rounded-lg px-3 py-2 border border-slate-600">
+                            </div>
+                            <div class="text-xs text-slate-500 p-2 bg-slate-700 rounded">
+                                این مقدار حداقل تغییر قیمت برای معتبر شدن سیگنال است
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-800 rounded-xl">
+                        <h4 class="font-bold text-blue-400 mb-4">🧠 الگوریتم‌های پیشرفته</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-slate-700 rounded">
+                                <input type="checkbox" id="cfgUseOIDelta" checked>
+                                <span class="text-sm">OI Delta Analysis</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-slate-700 rounded">
+                                <input type="checkbox" id="cfgUseIceberg" checked>
+                                <span class="text-sm">Iceberg Detection</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-slate-700 rounded">
+                                <input type="checkbox" id="cfgUseOrderFlow" checked>
+                                <span class="text-sm">Order Flow Analysis</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-slate-700 rounded">
+                                <input type="checkbox" id="cfgUseTrendReversal" checked>
+                                <span class="text-sm">Trend Reversal</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-slate-700 rounded">
+                                <input type="checkbox" id="cfgUseCNN" checked>
+                                <span class="text-sm">CNN-BiLSTM</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-slate-700 rounded">
+                                <input type="checkbox" id="cfgUseHedging" checked>
+                                <span class="text-sm">Hedging Detection</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex gap-4">
+                    <button onclick="saveAllSettings()" class="bg-green-600 px-6 py-2 rounded-lg font-bold">💾 ذخیره همه</button>
+                    <button onclick="resetSettings()" class="bg-slate-600 px-6 py-2 rounded-lg">🔄 پیش‌فرض</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast" class="fixed bottom-4 right-4 bg-slate-800 border border-slate-600 rounded-xl p-4 shadow-2xl transform translate-y-20 opacity-0 transition-all z-50 max-w-sm">
+        <div class="flex items-center gap-3">
+            <span id="toastIcon" class="text-2xl">✅</span>
+            <div>
+                <div id="toastTitle" class="font-bold"></div>
+                <div id="toastMessage" class="text-sm text-slate-400"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let marketData = [];
+        let signalFilter = 'all';
+        let ctrlPressed = false;
+        
+        // Ctrl+1 Handler
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === '1') {
+                ctrlPressed = true;
+                document.body.style.cursor = 'crosshair';
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Control' || e.key === '1') {
+                ctrlPressed = false;
+                document.body.style.cursor = 'default';
+                hidePricePopup();
+            }
+        });
+
+        document.addEventListener('contextmenu', (e) => {
+            if (ctrlPressed) {
+                e.preventDefault();
+                const target = e.target.closest('[data-symbol]');
+                if (target) {
+                    const symbol = target.getAttribute('data-symbol');
+                    showPricePopup(symbol, e.pageX, e.pageY);
+                }
+            }
+        });
+
+        async function showPricePopup(symbol, x, y) {
+            try {
+                const res = await fetch(`/api/price?symbol=${symbol}`);
+                const data = await res.json();
+                
+                if (data.success) {
+                    const popup = document.getElementById('pricePopup');
+                    document.getElementById('popupSymbol').textContent = symbol.replace('USDT', '');
+                    document.getElementById('popupPrice').textContent = '$' + formatPrice(data.price);
+                    document.getElementById('popupTime').textContent = new Date(data.time).toLocaleString('fa-IR');
+                    
+                    popup.style.left = x + 'px';
+                    popup.style.top = y + 'px';
+                    popup.style.display = 'block';
+                    popup.classList.add('slide-in');
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function hidePricePopup() {
+            document.getElementById('pricePopup').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadConfig();
+            fetchData();
+            setInterval(fetchData, 10000);
+        });
+        
+        async function fetchData() {
+            try {
+                const source = document.getElementById('apiSource').value;
+                const res = await fetch('/api/market?source=' + source);
+                const data = await res.json();
+                
+                if (data.success) {
+                    marketData = data.data;
+                    updateApiStatus(true, data.source);
+                    updateMarketTable();
+                    updateDashboard(data);
+                } else {
+                    updateApiStatus(false, data.source);
+                }
+                
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('fa-IR');
+                
+                loadTradeStats();
+            } catch (e) {
+                console.error(e);
+                updateApiStatus(false, '');
+            }
+        }
+
+        async function changeTradingMode() {
+            const mode = document.querySelector('input[name="tradeMode"]:checked').value;
+            await fetch('/api/config', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({trading_mode: mode})
+            });
+            
+            const modeEl = document.getElementById('tradingMode');
+            if (mode === 'paper') {
+                modeEl.className = 'px-3 py-1 rounded-lg bg-green-500/20 text-green-400 text-sm font-bold';
+                modeEl.textContent = '📄 Paper Mode';
+            } else {
+                modeEl.className = 'px-3 py-1 rounded-lg bg-red-500/20 text-red-400 text-sm font-bold';
+                modeEl.textContent = '🔴 Live Mode';
+            }
+            showToast('🎭', 'حالت معامله تغییر کرد', mode === 'paper' ? 'Paper Trading' : 'Live Trading');
+        }
+
+        async function startAutoTrade() {
+            await fetch('/api/auto-trade/start', {method: 'POST'});
+            showToast('🤖', 'اتو ترید شروع شد');
+            loadTradeStats();
+        }
+
+        async function stopAutoTrade() {
+            await fetch('/api/auto-trade/stop', {method: 'POST'});
+            showToast('⏸️', 'اتو ترید متوقف شد');
+            loadTradeStats();
+        }
+
+        async function loadTradeStats() {
+            const res = await fetch('/api/auto-trade/stats');
+            const s = await res.json();
+            document.getElementById('dailyTrades').textContent = s.daily_trades;
+            document.getElementById('consecutiveLosses').textContent = s.consecutive_losses;
+            document.getElementById('tradePnl').textContent = '$' + s.net_pnl.toFixed(2);
+            document.getElementById('tradeStatus').textContent = s.is_running ? 'فعال' : 'غیرفعال';
+            document.getElementById('tradeStatus').className = 'text-xl font-bold ' + (s.is_running ? 'text-green-400' : 'text-slate-400');
+            
+            if (s.is_running) {
+                document.getElementById('btnStart').classList.add('hidden');
+                document.getElementById('btnStop').classList.remove('hidden');
+            } else {
+                document.getElementById('btnStart').classList.remove('hidden');
+                document.getElementById('btnStop').classList.add('hidden');
+            }
+        }
+
+        async function changeApi() {
+            const source = document.getElementById('apiSource').value;
+            await fetch('/api/config', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({api_source: source})
+            });
+            fetchData();
+        }
+
+        async function loadConfig() {
+            const res = await fetch('/api/config');
+            const cfg = await res.json();
+            document.getElementById('apiSource').value = cfg.api_source || 'bybit';
+        }
+
+        function updateApiStatus(ok, source) {
+            const el = document.getElementById('apiStatus');
+            if (ok) {
+                el.className = 'flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-sm';
+                el.innerHTML = '<span class="w-2 h-2 rounded-full bg-green-500"></span><span>متصل به ' + source + '</span>';
+            } else {
+                el.className = 'flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-sm';
+                el.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500"></span><span>خطا</span>';
+            }
+        }
+
+        function updateDashboard(data) {
+            // Stats updated elsewhere
+        }
+
+        function updateMarketTable() {
+            const tbody = document.getElementById('marketTable');
+            if (!marketData || marketData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-8 text-slate-400">در حال بارگذاری...</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = marketData.slice(0, 100).map(m => {
+                const isPump = m.change > 5;
+                const isDump = m.change < -5;
+                const isWhale = m.volume > 500000;
+                const symbol = m.symbol.replace('USDT', '');
+                
+                return `<tr class="border-b border-slate-700/50 hover:bg-slate-800/50">
+                    <td class="py-2 px-2 font-bold" data-symbol="${m.symbol}">
+                        <span class="cursor-pointer hover:text-blue-400">${symbol}</span>
+                    </td>
+                    <td class="py-2 px-2 font-mono">$${formatPrice(m.price)}</td>
+                    <td class="py-2 px-2 ${m.change >= 0 ? 'text-green-400' : 'text-red-400'}">${(m.change >= 0 ? '+' : '')}${m.change.toFixed(2)}%</td>
+                    <td class="py-2 px-2 text-blue-400">$${formatNum(m.volume)}</td>
+                    <td class="py-2 px-2 text-purple-400">${formatNum(m.open_interest || 0)}</td>
+                    <td class="py-2 px-2 ${m.oi_delta >= 0 ? 'text-green-400' : 'text-red-400'}">${formatNum(m.oi_delta || 0)}</td>
+                    <td class="py-2 px-2 text-orange-400">${(m.funding_rate || 0).toFixed(4)}%</td>
+                    <td class="py-2 px-2">
+                        ${isPump ? '<span class="px-2 py-0.5 rounded text-xs bg-green-500/20 text-green-400">🚀</span>' : ''}
+                        ${isDump ? '<span class="px-2 py-0.5 rounded text-xs bg-red-500/20 text-red-400">💥</span>' : ''}
+                        ${isWhale ? '<span class="px-2 py-0.5 rounded text-xs bg-blue-500/20 text-blue-400">🐋</span>' : ''}
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function showTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tab + '-tab').classList.remove('hidden');
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-700');
+                if (btn.dataset.tab === tab) btn.classList.add('bg-slate-700');
+            });
+        }
+
+        function filterSignals(status) {
+            signalFilter = status;
+        }
+
+        function formatNum(n) {
+            if (!n) return '0';
+            if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+            if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+            if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+            return n.toFixed(2);
+        }
+
+        function formatPrice(p) {
+            if (!p) return '0';
+            if (p >= 1000) return p.toFixed(2);
+            if (p >= 1) return p.toFixed(4);
+            return p.toFixed(8);
+        }
+
+        function showToast(icon, title, msg = '') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastIcon').textContent = icon;
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
+
+        function saveAllSettings() {
+            showToast('💾', 'تنظیمات ذخیره شد');
+        }
+
+        function resetSettings() {
+            showToast('🔄', 'تنظیمات پیش‌فرض بازیابی شد');
+        }
+    </script>
+</body>
+</html>
