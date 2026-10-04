@@ -1,0 +1,1598 @@
+{
+  "generatedAt": "2026-09-30T19:26:59.467Z",
+  "data": "/home/user/Main_Arena_conn/apps/futures-pwa/data/BTCUSDT-6h.jsonl",
+  "timeframe": "6h",
+  "candles": 649,
+  "params": {
+    "left": 3,
+    "right": 3,
+    "minSwingPct": 1.2,
+    "vDepthPct": 2
+  },
+  "summary": {
+    "count": 76,
+    "vCount": 38,
+    "lCount": 38,
+    "avgStrength": 3.606710526315789,
+    "avgVStrength": 3.712105263157895,
+    "avgLStrength": 3.501315789473685,
+    "avgWidthBars": 13.986842105263158
+  },
+  "events": [
+    {
+      "kind": "L",
+      "i": 5,
+      "ts": 1776859200000,
+      "price": 79523,
+      "leftPct": 6.29,
+      "rightPct": 3.2,
+      "strengthPct": 3.2,
+      "leftBars": 3,
+      "rightBars": 4,
+      "symmetry": 0.51
+    },
+    {
+      "kind": "V",
+      "i": 9,
+      "ts": 1776945600000,
+      "price": 76979.99,
+      "leftPct": 3.2,
+      "rightPct": 3.27,
+      "strengthPct": 3.2,
+      "leftBars": 4,
+      "rightBars": 14,
+      "symmetry": 0.98
+    },
+    {
+      "kind": "L",
+      "i": 23,
+      "ts": 1777248000000,
+      "price": 79496,
+      "leftPct": 3.27,
+      "rightPct": 4.84,
+      "strengthPct": 3.27,
+      "leftBars": 14,
+      "rightBars": 6,
+      "symmetry": 0.68
+    },
+    {
+      "kind": "V",
+      "i": 29,
+      "ts": 1777377600000,
+      "price": 75646.84,
+      "leftPct": 4.84,
+      "rightPct": 2.99,
+      "strengthPct": 2.99,
+      "leftBars": 6,
+      "rightBars": 3,
+      "symmetry": 0.62
+    },
+    {
+      "kind": "L",
+      "i": 32,
+      "ts": 1777442400000,
+      "price": 77906.84,
+      "leftPct": 2.99,
+      "rightPct": 3.84,
+      "strengthPct": 2.99,
+      "leftBars": 3,
+      "rightBars": 2,
+      "symmetry": 0.78
+    },
+    {
+      "kind": "V",
+      "i": 34,
+      "ts": 1777485600000,
+      "price": 74914,
+      "leftPct": 3.84,
+      "rightPct": 5.66,
+      "strengthPct": 3.84,
+      "leftBars": 2,
+      "rightBars": 12,
+      "symmetry": 0.68
+    },
+    {
+      "kind": "L",
+      "i": 60,
+      "ts": 1778047200000,
+      "price": 82814.23,
+      "leftPct": 6.07,
+      "rightPct": 4.06,
+      "strengthPct": 4.06,
+      "leftBars": 12,
+      "rightBars": 5,
+      "symmetry": 0.67
+    },
+    {
+      "kind": "V",
+      "i": 65,
+      "ts": 1778155200000,
+      "price": 79456,
+      "leftPct": 4.06,
+      "rightPct": 3.77,
+      "strengthPct": 3.77,
+      "leftBars": 5,
+      "rightBars": 13,
+      "symmetry": 0.93
+    },
+    {
+      "kind": "L",
+      "i": 78,
+      "ts": 1778436000000,
+      "price": 82450,
+      "leftPct": 3.77,
+      "rightPct": 3.21,
+      "strengthPct": 3.21,
+      "leftBars": 13,
+      "rightBars": 7,
+      "symmetry": 0.85
+    },
+    {
+      "kind": "V",
+      "i": 89,
+      "ts": 1778673600000,
+      "price": 78699.83,
+      "leftPct": 3.19,
+      "rightPct": 4.28,
+      "strengthPct": 3.19,
+      "leftBars": 1,
+      "rightBars": 4,
+      "symmetry": 0.75
+    },
+    {
+      "kind": "L",
+      "i": 93,
+      "ts": 1778760000000,
+      "price": 82066.22,
+      "leftPct": 4.28,
+      "rightPct": 5.43,
+      "strengthPct": 4.28,
+      "leftBars": 4,
+      "rightBars": 7,
+      "symmetry": 0.79
+    },
+    {
+      "kind": "V",
+      "i": 109,
+      "ts": 1779105600000,
+      "price": 75992,
+      "leftPct": 3.28,
+      "rightPct": 2.81,
+      "strengthPct": 2.81,
+      "leftBars": 5,
+      "rightBars": 11,
+      "symmetry": 0.85
+    },
+    {
+      "kind": "L",
+      "i": 120,
+      "ts": 1779343200000,
+      "price": 78123.68,
+      "leftPct": 2.81,
+      "rightPct": 5.03,
+      "strengthPct": 2.81,
+      "leftBars": 11,
+      "rightBars": 8,
+      "symmetry": 0.56
+    },
+    {
+      "kind": "V",
+      "i": 128,
+      "ts": 1779516000000,
+      "price": 74197.11,
+      "leftPct": 5.03,
+      "rightPct": 4.33,
+      "strengthPct": 4.33,
+      "leftBars": 8,
+      "rightBars": 4,
+      "symmetry": 0.86
+    },
+    {
+      "kind": "L",
+      "i": 141,
+      "ts": 1779796800000,
+      "price": 78015.46,
+      "leftPct": 2.65,
+      "rightPct": 7.14,
+      "strengthPct": 2.65,
+      "leftBars": 7,
+      "rightBars": 8,
+      "symmetry": 0.37
+    },
+    {
+      "kind": "V",
+      "i": 149,
+      "ts": 1779969600000,
+      "price": 72445.11,
+      "leftPct": 7.14,
+      "rightPct": 2.46,
+      "strengthPct": 2.46,
+      "leftBars": 8,
+      "rightBars": 4,
+      "symmetry": 0.34
+    },
+    {
+      "kind": "L",
+      "i": 153,
+      "ts": 1780056000000,
+      "price": 74224.84,
+      "leftPct": 2.46,
+      "rightPct": 20.41,
+      "strengthPct": 2.46,
+      "leftBars": 4,
+      "rightBars": 29,
+      "symmetry": 0.12
+    },
+    {
+      "kind": "V",
+      "i": 182,
+      "ts": 1780682400000,
+      "price": 59073.01,
+      "leftPct": 20.41,
+      "rightPct": 8.74,
+      "strengthPct": 8.74,
+      "leftBars": 29,
+      "rightBars": 8,
+      "symmetry": 0.43
+    },
+    {
+      "kind": "L",
+      "i": 190,
+      "ts": 1780855200000,
+      "price": 64234.45,
+      "leftPct": 8.74,
+      "rightPct": 5.49,
+      "strengthPct": 5.49,
+      "leftBars": 8,
+      "rightBars": 10,
+      "symmetry": 0.63
+    },
+    {
+      "kind": "V",
+      "i": 200,
+      "ts": 1781071200000,
+      "price": 60708.92,
+      "leftPct": 5.49,
+      "rightPct": 6.62,
+      "strengthPct": 5.49,
+      "leftBars": 10,
+      "rightBars": 14,
+      "symmetry": 0.83
+    },
+    {
+      "kind": "L",
+      "i": 221,
+      "ts": 1781524800000,
+      "price": 67264,
+      "leftPct": 5.69,
+      "rightPct": 7.59,
+      "strengthPct": 5.69,
+      "leftBars": 3,
+      "rightBars": 12,
+      "symmetry": 0.75
+    },
+    {
+      "kind": "V",
+      "i": 233,
+      "ts": 1781784000000,
+      "price": 62159.76,
+      "leftPct": 7.59,
+      "rightPct": 3.78,
+      "strengthPct": 3.78,
+      "leftBars": 12,
+      "rightBars": 10,
+      "symmetry": 0.5
+    },
+    {
+      "kind": "L",
+      "i": 243,
+      "ts": 1782000000000,
+      "price": 64508.4,
+      "leftPct": 3.78,
+      "rightPct": 2.07,
+      "strengthPct": 2.07,
+      "leftBars": 10,
+      "rightBars": 3,
+      "symmetry": 0.55
+    },
+    {
+      "kind": "V",
+      "i": 246,
+      "ts": 1782064800000,
+      "price": 63171.19,
+      "leftPct": 2.07,
+      "rightPct": 3.77,
+      "strengthPct": 2.07,
+      "leftBars": 3,
+      "rightBars": 3,
+      "symmetry": 0.55
+    },
+    {
+      "kind": "L",
+      "i": 249,
+      "ts": 1782129600000,
+      "price": 65553.39,
+      "leftPct": 3.77,
+      "rightPct": 5.63,
+      "strengthPct": 3.77,
+      "leftBars": 3,
+      "rightBars": 3,
+      "symmetry": 0.67
+    },
+    {
+      "kind": "V",
+      "i": 252,
+      "ts": 1782194400000,
+      "price": 61862.27,
+      "leftPct": 5.63,
+      "rightPct": 2.09,
+      "strengthPct": 2.09,
+      "leftBars": 3,
+      "rightBars": 4,
+      "symmetry": 0.37
+    },
+    {
+      "kind": "L",
+      "i": 256,
+      "ts": 1782280800000,
+      "price": 63156.34,
+      "leftPct": 2.09,
+      "rightPct": 8.16,
+      "strengthPct": 2.09,
+      "leftBars": 4,
+      "rightBars": 5,
+      "symmetry": 0.26
+    },
+    {
+      "kind": "V",
+      "i": 261,
+      "ts": 1782388800000,
+      "price": 58000,
+      "leftPct": 8.16,
+      "rightPct": 4.89,
+      "strengthPct": 4.89,
+      "leftBars": 5,
+      "rightBars": 8,
+      "symmetry": 0.6
+    },
+    {
+      "kind": "L",
+      "i": 269,
+      "ts": 1782561600000,
+      "price": 60838.92,
+      "leftPct": 4.89,
+      "rightPct": 3.35,
+      "strengthPct": 3.35,
+      "leftBars": 8,
+      "rightBars": 6,
+      "symmetry": 0.68
+    },
+    {
+      "kind": "V",
+      "i": 275,
+      "ts": 1782691200000,
+      "price": 58800,
+      "leftPct": 3.35,
+      "rightPct": 3.24,
+      "strengthPct": 3.24,
+      "leftBars": 6,
+      "rightBars": 2,
+      "symmetry": 0.97
+    },
+    {
+      "kind": "L",
+      "i": 277,
+      "ts": 1782734400000,
+      "price": 60702.63,
+      "leftPct": 3.24,
+      "rightPct": 4.92,
+      "strengthPct": 3.24,
+      "leftBars": 2,
+      "rightBars": 6,
+      "symmetry": 0.66
+    },
+    {
+      "kind": "V",
+      "i": 283,
+      "ts": 1782864000000,
+      "price": 57717.55,
+      "leftPct": 4.92,
+      "rightPct": 9.86,
+      "strengthPct": 4.92,
+      "leftBars": 6,
+      "rightBars": 15,
+      "symmetry": 0.5
+    },
+    {
+      "kind": "L",
+      "i": 302,
+      "ts": 1783274400000,
+      "price": 63940.79,
+      "leftPct": 2.5,
+      "rightPct": 4.21,
+      "strengthPct": 2.5,
+      "leftBars": 2,
+      "rightBars": 3,
+      "symmetry": 0.59
+    },
+    {
+      "kind": "V",
+      "i": 305,
+      "ts": 1783339200000,
+      "price": 61250,
+      "leftPct": 4.21,
+      "rightPct": 5.57,
+      "strengthPct": 4.21,
+      "leftBars": 3,
+      "rightBars": 1,
+      "symmetry": 0.76
+    },
+    {
+      "kind": "L",
+      "i": 306,
+      "ts": 1783360800000,
+      "price": 64658.85,
+      "leftPct": 5.57,
+      "rightPct": 4.96,
+      "strengthPct": 4.96,
+      "leftBars": 1,
+      "rightBars": 7,
+      "symmetry": 0.89
+    },
+    {
+      "kind": "V",
+      "i": 313,
+      "ts": 1783512000000,
+      "price": 61453.09,
+      "leftPct": 4.96,
+      "rightPct": 5.23,
+      "strengthPct": 4.96,
+      "leftBars": 7,
+      "rightBars": 8,
+      "symmetry": 0.95
+    },
+    {
+      "kind": "L",
+      "i": 321,
+      "ts": 1783684800000,
+      "price": 64669.42,
+      "leftPct": 5.23,
+      "rightPct": 4.51,
+      "strengthPct": 4.51,
+      "leftBars": 8,
+      "rightBars": 13,
+      "symmetry": 0.86
+    },
+    {
+      "kind": "V",
+      "i": 334,
+      "ts": 1783965600000,
+      "price": 61750.9,
+      "leftPct": 4.51,
+      "rightPct": 6.17,
+      "strengthPct": 4.51,
+      "leftBars": 13,
+      "rightBars": 7,
+      "symmetry": 0.73
+    },
+    {
+      "kind": "L",
+      "i": 341,
+      "ts": 1784116800000,
+      "price": 65559.5,
+      "leftPct": 6.17,
+      "rightPct": 4.74,
+      "strengthPct": 4.74,
+      "leftBars": 7,
+      "rightBars": 8,
+      "symmetry": 0.77
+    },
+    {
+      "kind": "V",
+      "i": 349,
+      "ts": 1784289600000,
+      "price": 62452.52,
+      "leftPct": 4.74,
+      "rightPct": 3.95,
+      "strengthPct": 3.95,
+      "leftBars": 8,
+      "rightBars": 6,
+      "symmetry": 0.83
+    },
+    {
+      "kind": "L",
+      "i": 365,
+      "ts": 1784635200000,
+      "price": 66923.95,
+      "leftPct": 5.06,
+      "rightPct": 3.53,
+      "strengthPct": 3.53,
+      "leftBars": 5,
+      "rightBars": 8,
+      "symmetry": 0.7
+    },
+    {
+      "kind": "V",
+      "i": 377,
+      "ts": 1784894400000,
+      "price": 63641,
+      "leftPct": 3.23,
+      "rightPct": 3.24,
+      "strengthPct": 3.23,
+      "leftBars": 1,
+      "rightBars": 11,
+      "symmetry": 0.99
+    },
+    {
+      "kind": "L",
+      "i": 388,
+      "ts": 1785132000000,
+      "price": 65705.08,
+      "leftPct": 3.24,
+      "rightPct": 4.66,
+      "strengthPct": 3.24,
+      "leftBars": 11,
+      "rightBars": 5,
+      "symmetry": 0.7
+    },
+    {
+      "kind": "V",
+      "i": 393,
+      "ts": 1785240000000,
+      "price": 62645.39,
+      "leftPct": 4.66,
+      "rightPct": 3.22,
+      "strengthPct": 3.22,
+      "leftBars": 5,
+      "rightBars": 3,
+      "symmetry": 0.69
+    },
+    {
+      "kind": "L",
+      "i": 396,
+      "ts": 1785304800000,
+      "price": 64665.3,
+      "leftPct": 3.22,
+      "rightPct": 2.27,
+      "strengthPct": 2.27,
+      "leftBars": 3,
+      "rightBars": 2,
+      "symmetry": 0.71
+    },
+    {
+      "kind": "V",
+      "i": 398,
+      "ts": 1785348000000,
+      "price": 63194.45,
+      "leftPct": 2.27,
+      "rightPct": 3.43,
+      "strengthPct": 2.27,
+      "leftBars": 2,
+      "rightBars": 5,
+      "symmetry": 0.66
+    },
+    {
+      "kind": "L",
+      "i": 403,
+      "ts": 1785456000000,
+      "price": 65360,
+      "leftPct": 3.43,
+      "rightPct": 4.82,
+      "strengthPct": 3.43,
+      "leftBars": 5,
+      "rightBars": 7,
+      "symmetry": 0.71
+    },
+    {
+      "kind": "V",
+      "i": 410,
+      "ts": 1785607200000,
+      "price": 62209.81,
+      "leftPct": 4.82,
+      "rightPct": 4.47,
+      "strengthPct": 4.47,
+      "leftBars": 7,
+      "rightBars": 16,
+      "symmetry": 0.93
+    },
+    {
+      "kind": "L",
+      "i": 442,
+      "ts": 1786298400000,
+      "price": 65426,
+      "leftPct": 2.09,
+      "rightPct": 3.47,
+      "strengthPct": 2.09,
+      "leftBars": 13,
+      "rightBars": 8,
+      "symmetry": 0.6
+    },
+    {
+      "kind": "V",
+      "i": 461,
+      "ts": 1786708800000,
+      "price": 62468.21,
+      "leftPct": 3.02,
+      "rightPct": 27.26,
+      "strengthPct": 3.02,
+      "leftBars": 8,
+      "rightBars": 27,
+      "symmetry": 0.11
+    },
+    {
+      "kind": "L",
+      "i": 488,
+      "ts": 1787292000000,
+      "price": 79500,
+      "leftPct": 27.26,
+      "rightPct": 4.98,
+      "strengthPct": 4.98,
+      "leftBars": 27,
+      "rightBars": 7,
+      "symmetry": 0.18
+    },
+    {
+      "kind": "V",
+      "i": 495,
+      "ts": 1787443200000,
+      "price": 75538.12,
+      "leftPct": 4.98,
+      "rightPct": 7.58,
+      "strengthPct": 4.98,
+      "leftBars": 7,
+      "rightBars": 8,
+      "symmetry": 0.66
+    },
+    {
+      "kind": "L",
+      "i": 503,
+      "ts": 1787616000000,
+      "price": 81265.3,
+      "leftPct": 7.58,
+      "rightPct": 4.51,
+      "strengthPct": 4.51,
+      "leftBars": 8,
+      "rightBars": 6,
+      "symmetry": 0.59
+    },
+    {
+      "kind": "V",
+      "i": 509,
+      "ts": 1787745600000,
+      "price": 77601.02,
+      "leftPct": 4.51,
+      "rightPct": 5,
+      "strengthPct": 4.51,
+      "leftBars": 6,
+      "rightBars": 6,
+      "symmetry": 0.9
+    },
+    {
+      "kind": "L",
+      "i": 515,
+      "ts": 1787875200000,
+      "price": 81479.5,
+      "leftPct": 5,
+      "rightPct": 5.69,
+      "strengthPct": 5,
+      "leftBars": 6,
+      "rightBars": 2,
+      "symmetry": 0.88
+    },
+    {
+      "kind": "V",
+      "i": 517,
+      "ts": 1787918400000,
+      "price": 76845.71,
+      "leftPct": 5.69,
+      "rightPct": 3.32,
+      "strengthPct": 3.32,
+      "leftBars": 2,
+      "rightBars": 8,
+      "symmetry": 0.58
+    },
+    {
+      "kind": "L",
+      "i": 525,
+      "ts": 1788091200000,
+      "price": 79394.55,
+      "leftPct": 3.32,
+      "rightPct": 3.02,
+      "strengthPct": 3.02,
+      "leftBars": 8,
+      "rightBars": 1,
+      "symmetry": 0.91
+    },
+    {
+      "kind": "V",
+      "i": 526,
+      "ts": 1788112800000,
+      "price": 77000,
+      "leftPct": 3.02,
+      "rightPct": 2.93,
+      "strengthPct": 2.93,
+      "leftBars": 1,
+      "rightBars": 4,
+      "symmetry": 0.97
+    },
+    {
+      "kind": "L",
+      "i": 530,
+      "ts": 1788199200000,
+      "price": 79257.14,
+      "leftPct": 2.93,
+      "rightPct": 3.83,
+      "strengthPct": 2.93,
+      "leftBars": 4,
+      "rightBars": 6,
+      "symmetry": 0.76
+    },
+    {
+      "kind": "V",
+      "i": 536,
+      "ts": 1788328800000,
+      "price": 76219.18,
+      "leftPct": 3.83,
+      "rightPct": 7.96,
+      "strengthPct": 3.83,
+      "leftBars": 6,
+      "rightBars": 6,
+      "symmetry": 0.48
+    },
+    {
+      "kind": "L",
+      "i": 542,
+      "ts": 1788458400000,
+      "price": 82283,
+      "leftPct": 7.96,
+      "rightPct": 4.44,
+      "strengthPct": 4.44,
+      "leftBars": 6,
+      "rightBars": 3,
+      "symmetry": 0.56
+    },
+    {
+      "kind": "V",
+      "i": 545,
+      "ts": 1788523200000,
+      "price": 78626,
+      "leftPct": 4.44,
+      "rightPct": 2.47,
+      "strengthPct": 2.47,
+      "leftBars": 3,
+      "rightBars": 9,
+      "symmetry": 0.55
+    },
+    {
+      "kind": "L",
+      "i": 554,
+      "ts": 1788717600000,
+      "price": 80564.24,
+      "leftPct": 2.47,
+      "rightPct": 3.69,
+      "strengthPct": 2.47,
+      "leftBars": 9,
+      "rightBars": 7,
+      "symmetry": 0.67
+    },
+    {
+      "kind": "V",
+      "i": 561,
+      "ts": 1788868800000,
+      "price": 77589,
+      "leftPct": 3.69,
+      "rightPct": 2.92,
+      "strengthPct": 2.92,
+      "leftBars": 7,
+      "rightBars": 12,
+      "symmetry": 0.79
+    },
+    {
+      "kind": "L",
+      "i": 573,
+      "ts": 1789128000000,
+      "price": 79852.22,
+      "leftPct": 2.92,
+      "rightPct": 4.39,
+      "strengthPct": 2.92,
+      "leftBars": 12,
+      "rightBars": 10,
+      "symmetry": 0.66
+    },
+    {
+      "kind": "V",
+      "i": 583,
+      "ts": 1789344000000,
+      "price": 76347.27,
+      "leftPct": 4.39,
+      "rightPct": 4.25,
+      "strengthPct": 4.25,
+      "leftBars": 10,
+      "rightBars": 3,
+      "symmetry": 0.97
+    },
+    {
+      "kind": "L",
+      "i": 586,
+      "ts": 1789408800000,
+      "price": 79591.17,
+      "leftPct": 4.25,
+      "rightPct": 5.91,
+      "strengthPct": 4.25,
+      "leftBars": 3,
+      "rightBars": 4,
+      "symmetry": 0.72
+    },
+    {
+      "kind": "V",
+      "i": 590,
+      "ts": 1789495200000,
+      "price": 74887.5,
+      "leftPct": 5.91,
+      "rightPct": 9.4,
+      "strengthPct": 5.91,
+      "leftBars": 4,
+      "rightBars": 15,
+      "symmetry": 0.63
+    },
+    {
+      "kind": "L",
+      "i": 605,
+      "ts": 1789819200000,
+      "price": 81925,
+      "leftPct": 9.4,
+      "rightPct": 2.25,
+      "strengthPct": 2.25,
+      "leftBars": 15,
+      "rightBars": 2,
+      "symmetry": 0.24
+    },
+    {
+      "kind": "V",
+      "i": 607,
+      "ts": 1789862400000,
+      "price": 80085,
+      "leftPct": 2.25,
+      "rightPct": 9.13,
+      "strengthPct": 2.25,
+      "leftBars": 2,
+      "rightBars": 7,
+      "symmetry": 0.25
+    },
+    {
+      "kind": "L",
+      "i": 614,
+      "ts": 1790013600000,
+      "price": 87397,
+      "leftPct": 9.13,
+      "rightPct": 5.36,
+      "strengthPct": 5.36,
+      "leftBars": 7,
+      "rightBars": 10,
+      "symmetry": 0.59
+    },
+    {
+      "kind": "V",
+      "i": 624,
+      "ts": 1790229600000,
+      "price": 82708.96,
+      "leftPct": 5.36,
+      "rightPct": 3.07,
+      "strengthPct": 3.07,
+      "leftBars": 10,
+      "rightBars": 4,
+      "symmetry": 0.57
+    },
+    {
+      "kind": "L",
+      "i": 628,
+      "ts": 1790316000000,
+      "price": 85250,
+      "leftPct": 3.07,
+      "rightPct": 2.53,
+      "strengthPct": 2.53,
+      "leftBars": 4,
+      "rightBars": 1,
+      "symmetry": 0.82
+    },
+    {
+      "kind": "V",
+      "i": 629,
+      "ts": 1790337600000,
+      "price": 83091.19,
+      "leftPct": 2.53,
+      "rightPct": 2.49,
+      "strengthPct": 2.49,
+      "leftBars": 1,
+      "rightBars": 8,
+      "symmetry": 0.98
+    },
+    {
+      "kind": "L",
+      "i": 637,
+      "ts": 1790510400000,
+      "price": 85158.5,
+      "leftPct": 2.49,
+      "rightPct": 3.11,
+      "strengthPct": 2.49,
+      "leftBars": 8,
+      "rightBars": 4,
+      "symmetry": 0.8
+    },
+    {
+      "kind": "V",
+      "i": 641,
+      "ts": 1790596800000,
+      "price": 82510.37,
+      "leftPct": 3.11,
+      "rightPct": 2.48,
+      "strengthPct": 2.48,
+      "leftBars": 4,
+      "rightBars": 4,
+      "symmetry": 0.8
+    }
+  ],
+  "sweep": null,
+  "capture": {
+    "vRate": 2.631578947368421,
+    "lRate": 28.947368421052634,
+    "rows": [
+      {
+        "kind": "L",
+        "ts": 1776859200000,
+        "price": 79523,
+        "strengthPct": 3.2,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1776945600000,
+        "price": 76979.99,
+        "strengthPct": 3.2,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1777248000000,
+        "price": 79496,
+        "strengthPct": 3.27,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1777377600000,
+        "price": 75646.84,
+        "strengthPct": 2.99,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1777442400000,
+        "price": 77906.84,
+        "strengthPct": 2.99,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1777485600000,
+        "price": 74914,
+        "strengthPct": 3.84,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1778047200000,
+        "price": 82814.23,
+        "strengthPct": 4.06,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1778155200000,
+        "price": 79456,
+        "strengthPct": 3.77,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1778436000000,
+        "price": 82450,
+        "strengthPct": 3.21,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1778673600000,
+        "price": 78699.83,
+        "strengthPct": 3.19,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1778760000000,
+        "price": 82066.22,
+        "strengthPct": 4.28,
+        "caught": true,
+        "trade": {
+          "time": 1778738400000,
+          "pnl": -1.0009000182546506,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1779105600000,
+        "price": 75992,
+        "strengthPct": 2.81,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1779343200000,
+        "price": 78123.68,
+        "strengthPct": 2.81,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1779516000000,
+        "price": 74197.11,
+        "strengthPct": 4.33,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1779796800000,
+        "price": 78015.46,
+        "strengthPct": 2.65,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1779969600000,
+        "price": 72445.11,
+        "strengthPct": 2.46,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1780056000000,
+        "price": 74224.84,
+        "strengthPct": 2.46,
+        "caught": true,
+        "trade": {
+          "time": 1779991200000,
+          "pnl": -1.8330891298204066,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1780682400000,
+        "price": 59073.01,
+        "strengthPct": 8.74,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1780855200000,
+        "price": 64234.45,
+        "strengthPct": 5.49,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1781071200000,
+        "price": 60708.92,
+        "strengthPct": 5.49,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1781524800000,
+        "price": 67264,
+        "strengthPct": 5.69,
+        "caught": true,
+        "trade": {
+          "time": 1781524800000,
+          "pnl": 1.2102852894158904,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1781784000000,
+        "price": 62159.76,
+        "strengthPct": 3.78,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1782000000000,
+        "price": 64508.4,
+        "strengthPct": 2.07,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1782064800000,
+        "price": 63171.19,
+        "strengthPct": 2.07,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1782129600000,
+        "price": 65553.39,
+        "strengthPct": 3.77,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1782194400000,
+        "price": 61862.27,
+        "strengthPct": 2.09,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1782280800000,
+        "price": 63156.34,
+        "strengthPct": 2.09,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1782388800000,
+        "price": 58000,
+        "strengthPct": 4.89,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1782561600000,
+        "price": 60838.92,
+        "strengthPct": 3.35,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1782691200000,
+        "price": 58800,
+        "strengthPct": 3.24,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1782734400000,
+        "price": 60702.63,
+        "strengthPct": 3.24,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1782864000000,
+        "price": 57717.55,
+        "strengthPct": 4.92,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1783274400000,
+        "price": 63940.79,
+        "strengthPct": 2.5,
+        "caught": true,
+        "trade": {
+          "time": 1783231200000,
+          "pnl": -1.9706450290180588,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1783339200000,
+        "price": 61250,
+        "strengthPct": 4.21,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1783360800000,
+        "price": 64658.85,
+        "strengthPct": 4.96,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1783512000000,
+        "price": 61453.09,
+        "strengthPct": 4.96,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1783684800000,
+        "price": 64669.42,
+        "strengthPct": 4.51,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1783965600000,
+        "price": 61750.9,
+        "strengthPct": 4.51,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1784116800000,
+        "price": 65559.5,
+        "strengthPct": 4.74,
+        "caught": true,
+        "trade": {
+          "time": 1784095200000,
+          "pnl": 0.6981512333362956,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1784289600000,
+        "price": 62452.52,
+        "strengthPct": 3.95,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1784635200000,
+        "price": 66923.95,
+        "strengthPct": 3.53,
+        "caught": true,
+        "trade": {
+          "time": 1784656800000,
+          "pnl": 1.1388929081000134,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1784894400000,
+        "price": 63641,
+        "strengthPct": 3.23,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1785132000000,
+        "price": 65705.08,
+        "strengthPct": 3.24,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1785240000000,
+        "price": 62645.39,
+        "strengthPct": 3.22,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1785304800000,
+        "price": 64665.3,
+        "strengthPct": 2.27,
+        "caught": true,
+        "trade": {
+          "time": 1785261600000,
+          "pnl": -1.021935459915141,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1785348000000,
+        "price": 63194.45,
+        "strengthPct": 2.27,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1785456000000,
+        "price": 65360,
+        "strengthPct": 3.43,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1785607200000,
+        "price": 62209.81,
+        "strengthPct": 4.47,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1786298400000,
+        "price": 65426,
+        "strengthPct": 2.09,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1786708800000,
+        "price": 62468.21,
+        "strengthPct": 3.02,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1787292000000,
+        "price": 79500,
+        "strengthPct": 4.98,
+        "caught": true,
+        "trade": {
+          "time": 1787313600000,
+          "pnl": 9.861609518129525,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1787443200000,
+        "price": 75538.12,
+        "strengthPct": 4.98,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1787616000000,
+        "price": 81265.3,
+        "strengthPct": 4.51,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1787745600000,
+        "price": 77601.02,
+        "strengthPct": 4.51,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1787875200000,
+        "price": 81479.5,
+        "strengthPct": 5,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1787918400000,
+        "price": 76845.71,
+        "strengthPct": 3.32,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1788091200000,
+        "price": 79394.55,
+        "strengthPct": 3.02,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1788112800000,
+        "price": 77000,
+        "strengthPct": 2.93,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1788199200000,
+        "price": 79257.14,
+        "strengthPct": 2.93,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1788328800000,
+        "price": 76219.18,
+        "strengthPct": 3.83,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1788458400000,
+        "price": 82283,
+        "strengthPct": 4.44,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1788523200000,
+        "price": 78626,
+        "strengthPct": 2.47,
+        "caught": true,
+        "trade": {
+          "time": 1788501600000,
+          "pnl": -0.43705008264513223,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "L",
+        "ts": 1788717600000,
+        "price": 80564.24,
+        "strengthPct": 2.47,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1788868800000,
+        "price": 77589,
+        "strengthPct": 2.92,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1789128000000,
+        "price": 79852.22,
+        "strengthPct": 2.92,
+        "caught": true,
+        "trade": {
+          "time": 1789106400000,
+          "pnl": -0.10267796903352693,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1789344000000,
+        "price": 76347.27,
+        "strengthPct": 4.25,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1789408800000,
+        "price": 79591.17,
+        "strengthPct": 4.25,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1789495200000,
+        "price": 74887.5,
+        "strengthPct": 5.91,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1789819200000,
+        "price": 81925,
+        "strengthPct": 2.25,
+        "caught": true,
+        "trade": {
+          "time": 1789797600000,
+          "pnl": -0.19122691589267232,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1789862400000,
+        "price": 80085,
+        "strengthPct": 2.25,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1790013600000,
+        "price": 87397,
+        "strengthPct": 5.36,
+        "caught": true,
+        "trade": {
+          "time": 1790035200000,
+          "pnl": 3.7807882079447306,
+          "reason": "MAX_HOLD_EXIT"
+        }
+      },
+      {
+        "kind": "V",
+        "ts": 1790229600000,
+        "price": 82708.96,
+        "strengthPct": 3.07,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1790316000000,
+        "price": 85250,
+        "strengthPct": 2.53,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1790337600000,
+        "price": 83091.19,
+        "strengthPct": 2.49,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "L",
+        "ts": 1790510400000,
+        "price": 85158.5,
+        "strengthPct": 2.49,
+        "caught": false,
+        "trade": null
+      },
+      {
+        "kind": "V",
+        "ts": 1790596800000,
+        "price": 82510.37,
+        "strengthPct": 2.48,
+        "caught": false,
+        "trade": null
+      }
+    ]
+  }
+}

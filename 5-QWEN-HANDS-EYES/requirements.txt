@@ -1,0 +1,21 @@
+# ══════════════════════════════════════════════════════════════════
+# Qwen-Hands-Eyes (SkyGround OS) Requirements
+# Core engine runs on pure Python 3.9+ standard library.
+# The following optional packages unlock native GUI vision, fast screen capture & OCR:
+# ══════════════════════════════════════════════════════════════════
+
+# Vision & Screen Capture (Eyes)
+mss>=9.0.1
+Pillow>=10.0.0
+
+# Desktop Input & Automation (Hands)
+pyautogui>=0.9.54
+pyperclip>=1.8.2
+
+# Optional Fast Native HTTP / API Gateway
+requests>=2.31.0
+fastapi>=0.109.0
+uvicorn>=0.27.0
+
+# Optional Local OCR / Transformers if running in-process
+# pytesseract>=0.3.10

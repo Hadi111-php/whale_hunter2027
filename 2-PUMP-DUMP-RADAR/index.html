@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="description" content="Pump/Dump & New-Listing Radar — standalone lab" />
+  <title>🚀 Pump/Dump Lab — رادار مستقل پمپ و دامپ</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <h1>🚀 Pump/Dump Lab</h1>
+        <p id="statusText">رادار؛ راه‌اندازی...</p>
+      </div>
+      <div class="top-actions">
+        <button id="audioToggleBtn" class="ghost">🔊 صدا: روشن</button>
+        <button id="exportJsonBtn" class="btn" style="background:#f59e0b; color:#1a1000; font-weight:bold;">💾 JSON</button>
+        <button id="panicBtn" class="danger">Kill (قطع اضطراری)</button>
+      </div>
+    </header>
+
+    <section class="cards">
+      <article class="card accent"><span>Equity مجازی</span><strong id="equityCard">--</strong></article>
+      <article class="card"><span>PnL باز (خالص کارمزد)</span><strong id="openPnlCard">--</strong></article>
+      <article class="card"><span>Win-rate</span><strong id="winRateCard">--</strong></article>
+      <article class="card"><span>Profit Factor</span><strong id="pfCard">--</strong></article>
+      <article class="card"><span>کارمزد پرداخت‌شده</span><strong id="feesCard">--</strong></article>
+      <article class="card"><span>کشف‌شده‌های فعال</span><strong id="radarDiscovered">0</strong></article>
+      <article class="card"><span>دقت رادار (۱۰m) 🐋</span><strong id="radarAccuracyCard">--</strong></article>
+    </section>
+
+    <nav class="tabs" aria-label="tabs">
+      <button class="tab active" data-tab="radar">📡 رادار کل بازار</button>
+      <button class="tab" data-tab="trades">💼 معاملات و لاگ</button>
+      <button class="tab" data-tab="settings">⚙️ تنظیمات</button>
+    </nav>
+
+    <main>
+      <section id="radar" class="panel active">
+        <div class="notice amber">
+          <b>📡 رادار پمپ/دامپ مستقل:</b>
+          کل بازار (صدها جفت‌ارز) با یک فراخوان (Bybit → Binance → OKX) پایش می‌شود. کشف پمپ/دامپ/تازه‌لیست → موتور Ignition روی تایم‌فریم ریز → ورود خودکار مجازی با گیت‌های امنیتی. این پروژه کاملاً مستقل از اتوتریدر اجرا می‌شود؛ هیچ Slowdown متقابلی وجود ندارد.
+        </div>
+        <div class="toolbar wrap">
+          <button id="refreshBtn">🔄 پول فوری</button>
+          <label class="switch-row"><input id="autoScanToggle" type="checkbox" checked /> اسکن خودکار</label>
+          <label class="switch-row"><input id="autoTradeToggle" type="checkbox" checked /> اتوترید مجازی</label>
+          <span id="lastRadarInfo" class="muted">--</span>
+        </div>
+        <div class="report-grid">
+          <div><span>وضعیت رادار</span><b id="radarStatusBadge" style="color:#f59e0b;">--</b></div>
+          <div><span>منبع و آخرین پول</span><b id="radarSourceMeta" style="direction:ltr;">--</b></div>
+          <div><span>نمادهای تحت پایش</span><b id="radarUniverse">--</b></div>
+          <div><span>گرم‌سازی پنجره</span><b id="radarWarmup" style="color:#38bdf8;">--</b></div>
+          <div><span>تایم‌فریم کار رادار</span><b id="radarModeMeta" style="color:#38bdf8;">--</b></div>
+          <div><span>خلاصهٔ موتور Ignition</span><b id="ignitionSummary" style="color:#10b981; font-size:0.95rem;">--</b></div>
+        </div>
+
+        <h2>🔥 داغ‌ترین حرکت‌های بازار</h2>
+        <div class="table-wrap compact-table">
+          <table>
+            <thead><tr><th>نماد</th><th>تغییر پنجره</th><th>مبنا</th><th>گردش ۲۴س</th><th>وضعیت</th></tr></thead>
+            <tbody id="moversRows"></tbody>
+          </table>
+        </div>
+
+        <h2>🎯 کشف‌شده‌ها در موتور Ignition</h2>
+        <div class="table-wrap compact-table">
+          <table>
+            <thead><tr><th>نماد</th><th>نوع کشف</th><th>تغییر پنجره</th><th>گردش ۲۴س</th><th>ماندگاری / وضعیت ورود</th></tr></thead>
+            <tbody id="activeRows"></tbody>
+          </table>
+        </div>
+
+        <h2>📜 رخدادهای رادار</h2>
+        <div class="table-wrap compact-table">
+          <table>
+            <thead><tr><th>زمان</th><th>نوع</th><th>نماد</th><th>تغییر</th><th>گردش ۲۴س</th><th>نتیجه ۱۰m</th></tr></thead>
+            <tbody id="eventsRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="trades" class="panel">
+        <div class="toolbar wrap">
+          <button id="resetPaperBtn" class="warning">ریست حساب مجازی</button>
+        </div>
+        <h2>💼 پوزیشن‌های باز</h2>
+        <div class="table-wrap compact-table">
+          <table>
+            <thead><tr><th>نماد</th><th>سمت</th><th>ورود</th><th>مارک</th><th>SL/TP</th><th>سن</th><th>PnL خالص</th></tr></thead>
+            <tbody id="positionsRows"></tbody>
+          </table>
+        </div>
+        <h2>📑 تاریخچه معاملات</h2>
+        <div class="table-wrap compact-table">
+          <table>
+            <thead><tr><th>زمان</th><th>نماد</th><th>سمت</th><th>ورود → خروج</th><th>کشف رادار</th><th>Fees</th><th>Net PnL</th><th>دلیل / مدت</th></tr></thead>
+            <tbody id="tradesRows"></tbody>
+          </table>
+        </div>
+        <h2>🧾 لاگ سیستم</h2>
+        <div class="toolbar"><button id="clearLogsBtn" class="ghost">پاک‌کردن لاگ</button></div>
+        <pre id="logBox"></pre>
+      </section>
+
+      <section id="settings" class="panel">
+        <form id="settingsForm" class="settings-grid">
+          <fieldset>
+            <legend>📡 رادار (کشف)</legend>
+            <label>رادار فعال؟<select name="radarEnabled"><option value="true">فعال</option><option value="false">غیرفعال</option></select></label>
+            <label>پنجره تشخیص (دقیقه)<input name="radarWindowMin" type="number" step="5" min="5" /></label>
+            <label>آستانه پمپ %<input name="radarPumpThresholdPct" type="number" step="0.5" /></label>
+            <label>آستانه دامپ % (منفی)<input name="radarDumpThresholdPct" type="number" step="0.5" /></label>
+            <label>حداقل گردش ۲۴س (دلار)<input name="radarMinTurnover24h" type="number" step="1000000" min="0" /></label>
+            <label>سقف کشف همزمان<input name="radarMaxSymbols" type="number" step="1" min="1" /></label>
+            <label>ماندگاری کشف (دقیقه)<input name="radarTtlMin" type="number" step="10" min="5" /></label>
+            <label>فاصله پول (ثانیه)<input name="radarPollSec" type="number" step="5" min="10" /></label>
+            <label>زمان قضاوت رویداد، دقیقه 🐋<input name="radarCheckMinutes" type="number" step="1" min="1" /></label>
+            <label>آستانهٔ حرکت برای درست‌شمردن %<input name="radarThresholdPct" type="number" step="0.1" min="0.1" /></label>
+            <label>هشدار تازه‌لیست؟<select name="radarNewListingAlert"><option value="true">فعال</option><option value="false">غیرفعال</option></select></label>
+            <label>سن «تازه‌لیست» (دقیقه)<input name="radarNewListingMin" type="number" step="60" min="60" /></label>
+            <label>تقریب ۲۴س در گرم‌سازی؟<select name="radarWarmupFallback"><option value="true">بله</option><option value="false">خیر — فقط پنجره دقیق</option></select></label>
+            <label>لیست سیاه (کاما)<textarea name="radarBlacklist" rows="2" style="direction:ltr; text-align:left;"></textarea></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>🔥 موتور Ignition (ورود)</legend>
+            <label>تایم‌فریم ورود<select name="entryTimeframe"><option value="1">1m</option><option value="3">3m</option><option value="5">5m</option></select></label>
+            <label>حداقل امتیاز ورود<input name="ignitionMinScore" type="number" step="1" min="1" max="100" /></label>
+            <label>پنجره RSI — کف<input name="ignitionRsiMin" type="number" step="1" min="0" max="100" /></label>
+            <label>پنجره RSI — سقف<input name="ignitionRsiMax" type="number" step="1" min="0" max="100" /></label>
+            <label>حداقل جهش حجم x<input name="ignitionVolumeX" type="number" step="0.1" /></label>
+            <label>تاییدیه استریک ریز‌کندل؟<select name="ignitionMicroCheck"><option value="true">فعال</option><option value="false">غیرفعال</option></select></label>
+            <label>تعداد کندل استریک<input name="ignitionMicroCount" type="number" step="1" min="1" max="4" /></label>
+            <label>ATR Stop ضریب<input name="ignitionAtrStopMult" type="number" step="0.1" /></label>
+            <label>Risk/Reward TP<input name="ignitionTakeProfitR" type="number" step="0.1" /></label>
+            <label>حداکثر نگهداری (دقیقه)<input name="ignitionMaxHoldMin" type="number" step="5" min="1" /></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>💼 ریسک، کارمزد و صدا</legend>
+            <label>سرمایه مجازی USDT<input name="paperInitialEquity" type="number" step="1" /></label>
+            <label>مارجین هر معامله USDT<input name="orderMargin" type="number" step="1" /></label>
+            <label>اهرم<input name="leverage" type="number" step="1" min="1" max="125" /></label>
+            <label>کارمزد Taker ورود %<input name="feeOpenPct" type="number" step="0.001" /></label>
+            <label>کارمزد Taker خروج %<input name="feeClosePct" type="number" step="0.001" /></label>
+            <label>اسلیپیج %<input name="slippagePct" type="number" step="0.001" /></label>
+            <label>حد ضرر روزانه %<input name="dailyLossLimitPct" type="number" step="0.1" /></label>
+            <label>سقف پوزیشن همزمان<input name="maxOpenPositions" type="number" step="1" min="1" /></label>
+            <label>Cooldown هر نماد (ثانیه)<input name="cooldownSec" type="number" step="10" min="0" /></label>
+            <label>هشدار صوتی؟<select name="audioAlerts"><option value="true">فعال</option><option value="false">غیرفعال</option></select></label>
+            <label>بلندی صدا (۰-۱)<input name="audioVolume" type="number" step="0.05" min="0" max="1" /></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>🔗 پل و اسکن</legend>
+            <p class="muted small-note">با روشن بودن انتشار، نمادهای داغ روی <code>/api/hot</code> این سرور منتشر می‌شوند تا اتوتریدر Futures Scalp Lab (در صورت تمایل و تنظیم آدرس پل در آنجا) بتواند آن‌ها را بخواند. این تنها نقطه اتصال اختیاری دو پروژه است.</p>
+            <label>انتشار نمادهای داغ روی پل؟<select name="bridgePublish"><option value="true">فعال</option><option value="false">غیرفعال</option></select></label>
+            <label>فاصله اسکن Ignition (ثانیه)<input name="scanIntervalSec" type="number" step="1" min="3" /></label>
+            <label>اتوترید مجازی پیش‌فرض<select name="paperAutoDefault"><option value="true">ON</option><option value="false">OFF</option></select></label>
+          </fieldset>
+
+          <div class="settings-actions">
+            <button type="submit">ذخیره و اعمال</button>
+            <button id="defaultsBtn" type="button" class="warning">پیش‌فرض‌ها</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="src/js/main.js"></script>
+</body>
+</html>

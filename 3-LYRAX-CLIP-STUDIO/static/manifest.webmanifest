@@ -1,0 +1,19 @@
+{
+  "name": "LyraX Clip & Lyric Studio Pro",
+  "short_name": "LyraX Studio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0c0f",
+  "theme_color": "#0a0c0f",
+  "orientation": "portrait-primary",
+  "description": "استودیو حرفه‌ای ساخت کلیپ و سینک لیریکس موزیک با رندرینگ هوشمند",
+  "icons": [
+    {
+      "src": "/static/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["multimedia", "music", "video", "productivity"]
+}

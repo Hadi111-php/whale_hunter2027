@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qwen-Hands-Eyes | داشبورد فرماندهی مغز آفلاین</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- نوار بالایی هدر -->
+        <header class="top-bar">
+            <div class="logo-area">
+                <span class="logo-icon">🧠</span>
+                <div>
+                    <h1 class="logo-title">Qwen-Hands-Eyes</h1>
+                    <span class="logo-subtitle">مغز آفلاین دوزبانه با چشم (Eyes)، دست (Hands) و دروازه موبایل (Feet)</span>
+                </div>
+            </div>
+
+            <div class="status-badges">
+                <div class="badge mode-badge" id="currentModeBadge">حالت: Dual-Brain</div>
+                <div class="badge status-live" id="systemStatusBadge">● آنلاین</div>
+                <div class="badge ip-badge" id="networkIpBadge">IP: 127.0.0.1:8765</div>
+            </div>
+        </header>
+
+        <!-- بدنه اصلی دو ستونه -->
+        <div class="main-layout">
+            <!-- منوی سایدبار تب‌ها -->
+            <nav class="sidebar">
+                <button class="nav-btn active" data-tab="chat-tab">
+                    <span class="nav-icon">💬</span>
+                    <span>چت و استدلال دو مدلی</span>
+                </button>
+                <button class="nav-btn" data-tab="eyes-tab">
+                    <span class="nav-icon">👁️</span>
+                    <span>چشم دسکتاپ (Eyes)</span>
+                </button>
+                <button class="nav-btn" data-tab="hands-tab">
+                    <span class="nav-icon">🖐️</span>
+                    <span>دست‌ها و ابزارها (Hands)</span>
+                    <span class="approval-counter" id="approvalCounter" style="display:none;">0</span>
+                </button>
+                <button class="nav-btn" data-tab="feet-tab">
+                    <span class="nav-icon">🦶</span>
+                    <span>دروازه موبایل و IP (Feet)</span>
+                </button>
+                <button class="nav-btn" data-tab="search-tab">
+                    <span class="nav-icon">🌐</span>
+                    <span>ایجنت جستجوی وب</span>
+                </button>
+                <button class="nav-btn" data-tab="settings-tab">
+                    <span class="nav-icon">⚙️</span>
+                    <span>تنظیمات پارامتریک</span>
+                </button>
+            </nav>
+
+            <!-- محتوای تب‌ها -->
+            <main class="content-area">
+                
+                <!-- ═══════════ تب ۱: چت و تعامل دو مدلی ═══════════ -->
+                <section id="chat-tab" class="tab-pane active">
+                    <div class="chat-header">
+                        <div class="brain-selector">
+                            <label>مسیریابی مغز:</label>
+                            <select id="brainRouteSelect" onchange="switchBrainMode(this.value)">
+                                <option value="dual_brain">🧠 خودکار: Qwen (فارسی/هماهنگ‌کننده) ⇄ DeepSeek R1 (استدلال عمیق)</option>
+                                <option value="qwen_direct">⚡ مستقیم Qwen (پاسخ سریع محلی)</option>
+                                <option value="deepseek_direct">🔬 مستقیم DeepSeek R1 (استدلال خام)</option>
+                                <option value="api_bridge">🌐 پل API ابری (OpenAI / Claude / DeepSeek)</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" onclick="clearChat()">🗑️ پاکسازی گفتگو</button>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message assistant-msg">
+                            <div class="msg-header">
+                                <span class="avatar">🤖</span>
+                                <span class="sender-name">دستیار هوشمند Arena.ai (Qwen + DeepSeek R1)</span>
+                                <span class="msg-time">همین الان</span>
+                            </div>
+                            <div class="msg-body">
+                                سلام هادی عزیز! مغز آفلاین با معماری دوگانه و حواس چشم (بینایی)، دست (اجرای دستورات و ماوس/کیبورد) و پا (دروازه ارتباط موبایل) آماده است.
+                                می‌تونی به زبان فارسی هر سوال، کد، استدلال یا دستوری برای دسکتاپ داری بپرسی تا پردازش بشه.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <textarea id="chatInput" placeholder="پیام خود را بنویسید (مثلاً: یک اسکریپت بک‌تست پایتون بنویس، یا صفحه دسکتاپ رو ببین)..." rows="2" onkeydown="handleChatKey(event)"></textarea>
+                        <button class="btn btn-primary" id="sendBtn" onclick="sendMessage()">
+                            <span>ارسال</span>
+                            <span class="send-icon">🚀</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- ═══════════ تب ۲: چشم دسکتاپ (Eyes) ═══════════ -->
+                <section id="eyes-tab" class="tab-pane">
+                    <div class="pane-header">
+                        <h2>👁️ بینایی دسکتاپ و اسکرین کپچر (Eyes)</h2>
+                        <button class="btn btn-primary btn-sm" onclick="refreshScreenSnapshot()">📸 گرفتن اسکرین‌شات زنده</button>
+                    </div>
+
+                    <div class="eyes-grid">
+                        <div class="screen-preview-card">
+                            <h3>تصویر فعلی صفحه</h3>
+                            <div class="screen-img-wrapper" id="screenWrapper">
+                                <img id="screenPreviewImg" src="" alt="هنوز تصویری دریافت نشده" style="display:none;">
+                                <div id="screenPlaceholder" class="screen-placeholder">در حال بارگذاری تصویر دسکتاپ...</div>
+                            </div>
+                            <div class="screen-meta" id="screenMeta">رزولوشن: -- | زمان: --</div>
+                        </div>
+
+                        <div class="visual-inspection-card">
+                            <h3>تحلیل بینایی مدل چندحالته (VLM Vision)</h3>
+                            <div class="prompt-box">
+                                <input type="text" id="vlmPromptInput" value="صفحه را تحلیل کن و تمام دکمه‌ها و پنجره‌های فعال را گزارش بده." placeholder="دستور برای مدل بینایی...">
+                                <button class="btn btn-secondary btn-sm" onclick="runVLMInspection()">تحلیل با چشم</button>
+                            </div>
+                            <div class="vlm-output" id="vlmOutput">نتیجه تحلیل پس از گرفتن اسکرین‌شات در اینجا نمایش داده می‌شود.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ═══════════ تب ۳: دست‌ها و ابزارها (Hands) ═══════════ -->
+                <section id="hands-tab" class="tab-pane">
+                    <div class="pane-header">
+                        <h2>🖐️ کنترل ماوس، کیبورد و اجرای فرامین (Hands)</h2>
+                    </div>
+
+                    <div class="hands-layout">
+                        <!-- صف تاییدات امنیتی -->
+                        <div class="approval-box card">
+                            <h3>🛡️ تاییدات امنیتی در انتظار (Approval Requests)</h3>
+                            <div id="approvalList" class="approval-list">
+                                <div class="empty-state">هیچ درخواستی در انتظار تایید نیست. سیستم در وضعیت امن است.</div>
+                            </div>
+                        </div>
+
+                        <!-- تست اکشن‌های دستی ماوس و کیبورد -->
+                        <div class="manual-actions card">
+                            <h3>🎯 کنترل مستقیم ماوس و کیبورد</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>مختصات X:</label>
+                                    <input type="number" id="mouseX" value="500">
+                                </div>
+                                <div class="form-group">
+                                    <label>مختصات Y:</label>
+                                    <input type="number" id="mouseY" value="300">
+                                </div>
+                                <div class="form-group">
+                                    <label>کلیک:</label>
+                                    <button class="btn btn-secondary btn-sm" onclick="sendMouseClick()">کلیک چپ</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>تایپ متن (پشتیبانی کامل از یونیکد/فارسی):</label>
+                                <div class="input-with-btn">
+                                    <input type="text" id="typeTextInput" placeholder="متنی برای تایپ در پنجره فعال بنویسید...">
+                                    <button class="btn btn-secondary btn-sm" onclick="sendTypeText()">تایپ کن</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>اجرای دستور ترمینال (امن با مهلت زمانی):</label>
+                                <div class="input-with-btn">
+                                    <input type="text" id="terminalCmdInput" placeholder="مثلاً: dir یا ls -la یا python --version">
+                                    <button class="btn btn-primary btn-sm" onclick="sendTerminalCommand()">اجرا</button>
+                                </div>
+                                <pre class="terminal-output" id="terminalOutput">خروجی ترمینال در اینجا قرار می‌گیرد...</pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ═══════════ تب ۴: دروازه موبایل و Static IP (Feet) ═══════════ -->
+                <section id="feet-tab" class="tab-pane">
+                    <div class="pane-header">
+                        <h2>🦶 دروازه ارتباطی موبایل اندروید و Static IP (Feet)</h2>
+                        <button class="btn btn-secondary btn-sm" onclick="refreshNetworkInfo()">🔄 بروزرسانی وضعیت شبکه</button>
+                    </div>
+
+                    <div class="feet-grid">
+                        <div class="card">
+                            <h3>🌐 آدرس‌های اتصال اپلیکیشن موبایل</h3>
+                            <div class="info-list" id="networkInfoList">
+                                <div class="info-item">
+                                    <span class="info-label">آدرس شبکه داخلی (LAN URL):</span>
+                                    <code class="info-val" id="lanUrlVal">http://192.168.1.X:8765/api/v1</code>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">آدرس اینترنت / آی‌پی عمومی (Public IP):</span>
+                                    <code class="info-val" id="wanUrlVal">در حال بررسی...</code>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">توکن احراز هویت (Auth Token):</span>
+                                    <code class="info-val" id="authTokenVal">skyground_secret_token_default</code>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <h4>راهنمای اتصال سریع اپلیکیشن اندروید:</h4>
+                                <ol class="guide-steps">
+                                    <li>مطمئن شوید گوشی موبایل و کامپیوتر به یک مودم/وای‌فای (یا آی‌پی استاتیک) وصل هستند.</li>
+                                    <li>در تنظیمات اپلیکیشن اندروید، آدرس پایه (Base URL) را روی مقدار بالا قرار دهید.</li>
+                                    <li>کلید تست ارتباط را در زیر بزنید تا ارتباط تایید شود:</li>
+                                </ol>
+                                <button class="btn btn-primary btn-sm" onclick="testMobilePing()">⚡ تست پینگ دروازه موبایل</button>
+                                <span id="pingResult" class="ping-badge"></span>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>📱 قرارداد اندپوینت‌های API اندروید</h3>
+                            <pre class="api-doc-box">
+POST /api/v1/chat
+Payload: {"message": "سلام", "session_id": "phone_1"}
+
+GET /api/v1/eyes/snapshot
+Response: {"ok": true, "observation": {...}}
+
+POST /api/v1/hands/action
+Payload: {"action_type": "click", "params": {"x": 100, "y": 200}}
+
+POST /api/v1/brain/route
+Payload: {"mode": "dual_brain"}
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ═══════════ تب ۵: جستجوی وب ═══════════ -->
+                <section id="search-tab" class="tab-pane">
+                    <div class="pane-header">
+                        <h2>🌐 ایجنت جستجو و استخراج اطلاعات وب</h2>
+                    </div>
+
+                    <div class="card">
+                        <div class="input-with-btn">
+                            <input type="text" id="webSearchQuery" placeholder="عبارت مورد نظر برای جستجوی وب (فارسی یا انگلیسی)...">
+                            <button class="btn btn-primary" onclick="performWebSearch()">جستجو در اینترنت</button>
+                        </div>
+                        <div class="search-results mt-4" id="searchResults">
+                            <div class="empty-state">عبارتی را برای جستجو وارد کنید.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ═══════════ تب ۶: تنظیمات پارامتریک ═══════════ -->
+                <section id="settings-tab" class="tab-pane">
+                    <div class="pane-header">
+                        <h2>⚙️ تنظیمات پارامتریک و مدل‌های زبانی</h2>
+                        <button class="btn btn-primary btn-sm" onclick="saveSettings()">💾 ذخیره تنظیمات</button>
+                    </div>
+
+                    <div class="settings-grid">
+                        <div class="card">
+                            <h3>🧠 مدل اصلی (Qwen / Persian Maestro)</h3>
+                            <div class="form-group">
+                                <label>ارائه‌دهنده (Provider):</label>
+                                <select id="cfgPrimaryProvider">
+                                    <option value="ollama">Ollama (محلی)</option>
+                                    <option value="vllm">vLLM</option>
+                                    <option value="llama_cpp">llama.cpp server</option>
+                                    <option value="openai_compatible">OpenAI Compatible API</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>آدرس پایه (Base URL):</label>
+                                <input type="text" id="cfgPrimaryUrl" value="http://localhost:11434">
+                            </div>
+                            <div class="form-group">
+                                <label>نام مدل (Model Name):</label>
+                                <input type="text" id="cfgPrimaryModel" value="qwen2.5:7b-instruct-q4_K_M">
+                            </div>
+                            <div class="form-group">
+                                <label>دما (Temperature):</label>
+                                <input type="number" step="0.05" id="cfgPrimaryTemp" value="0.7">
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>🔬 مدل استدلال عمیق (DeepSeek R1 / Reasoner)</h3>
+                            <div class="form-group">
+                                <label>ارائه‌دهنده (Provider):</label>
+                                <select id="cfgReasoningProvider">
+                                    <option value="ollama">Ollama (محلی)</option>
+                                    <option value="deepseek_api">DeepSeek Official API</option>
+                                    <option value="openai_compatible">OpenRouter / OpenAI</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>آدرس پایه (Base URL):</label>
+                                <input type="text" id="cfgReasoningUrl" value="http://localhost:11434">
+                            </div>
+                            <div class="form-group">
+                                <label>نام مدل (Model Name):</label>
+                                <input type="text" id="cfgReasoningModel" value="deepseek-r1:7b">
+                            </div>
+                            <div class="form-group">
+                                <label>کلید API (در صورت استفاده از کلود):</label>
+                                <input type="password" id="cfgReasoningKey" placeholder="sk-...">
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>🧬 حافظه و پارامترهای DSA (Fade-Not-Forget)</h3>
+                            <div class="form-group">
+                                <label>نرخ فراموشی معنایی (λ - Lambda):</label>
+                                <input type="number" step="0.01" id="cfgDsaLambda" value="0.15">
+                            </div>
+                            <div class="form-group">
+                                <label>ضریب میرایی اولیه (γ - Gamma):</label>
+                                <input type="number" step="0.05" id="cfgDsaGamma" value="0.4">
+                            </div>
+                            <div class="form-group">
+                                <label>کف حداقلی یادآوری (Min Weight - Floor):</label>
+                                <input type="number" step="0.01" id="cfgDsaMin" value="0.15">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
